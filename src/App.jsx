@@ -22,6 +22,15 @@ export default function App() {
     });
   };
 
+
+  // Action for toggling which episode is a favorite
+  // onClick will call this action which will dispatch to our reducer.
+  const toggleFavAction = episode =>
+  dispatch({
+    type: 'ADD_FAV',
+    payload: episode
+  });
+
   //Similar to componentDidMount, if the app loads with empty state, we call our action.
   React.useEffect(() => {
     state.episodes.length === 0 && fetchDataAction();
@@ -31,14 +40,15 @@ export default function App() {
   return (
     <React.Fragment>
       {console.log(state)}
-      <div>
+      <div className="header">
         <h1>Rick and Morty</h1>
         <p>Pick your favourite episodes</p>
+        </div>
         {/* This uses a function to map out each episode into its own div (should just use a component and pass props) */}
-        <section>
+        <section className="episode-layout">
           {state.episodes.map(episode => {
             return (
-              <section key={episode.id}>
+              <section key={episode.id} className="episode-box">
                 <img
                   src={episode.image.medium}
                   alt={`Rick and Morty ${episode.name}`}
@@ -48,12 +58,12 @@ export default function App() {
                   <div>
                     Season: {episode.season} Number: {episode.number}
                   </div>
+                  <button type='button' onClick={() => toggleFavAction(episode)}>Fav</button>
                 </section>
               </section>
             );
           })}
         </section>
-      </div>
     </React.Fragment>
   );
 }

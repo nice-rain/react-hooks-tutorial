@@ -15,6 +15,11 @@ function reducer(state, action) {
     switch (action.type) {
       case 'FETCH_DATA':
         return { ...state, episodes: action.payload }; //Seems to be shorthand for object.assign
+      case 'ADD_FAV':
+        return {
+          ...state,
+          favourites: [...state.favourites, action.payload]
+      };
       default:
         return state;
     }
