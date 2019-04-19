@@ -16,10 +16,9 @@ function reducer(state, action) {
       case 'FETCH_DATA':
         return { ...state, episodes: action.payload }; //Seems to be shorthand for object.assign
       case 'ADD_FAV':
-        return {
-          ...state,
-          favourites: [...state.favourites, action.payload]
-      };
+        return {...state, favourites: [...state.favourites, action.payload]}; //Appends our payload to our favorites
+      case 'REMOVE_FAV':
+        return {...state, favourites: action.payload}; //replaces our favorites with a new favorites array without our item
       default:
         return state;
     }
